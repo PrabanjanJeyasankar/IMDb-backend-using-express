@@ -1,4 +1,5 @@
 const imbdmovieModel = require('../modules/imdb');
+
 const { response } = require('../routers/imdb');
 
 const getAMovieDetail = async (request,response)=>{
