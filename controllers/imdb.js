@@ -25,9 +25,39 @@ const postAMovieDetail = async (request, response)=>{
         response.status(500).json({message:errorMessage});
     }
 } 
-
+const PatchAMovieDetail = async(request, response)=>{
+    if(request.body.title != null)
+    {
+        response.movie.title = request.body.title;
+    }
+    if(request.body.year != null)
+    {
+        response.movie.title = request.body.year;
+    }
+    if(request.body.language != null)
+    {
+        response.movie.title = request.body.language;
+    }
+    try{
+        const updatedAMovie = await response.movie.save();
+        response.status(200).json(updatedAMovie);
+    }
+    catch(error){
+        return response.status(400).json({message: error.message})
+    }
+}
 const getMovieById = async  (request, response)=>{
     response.status(200).json(response.movie)
+}
+
+const deleteAMovie = async (request,response)=>{
+    try{
+        await response.movie.deleteOne();
+        response.json({message: `Deleted the user ${response.movie.id}`})
+    }
+    catch(error){
+        return response.status(500).json({message: error.message})
+    }
 }
 
 async function findAMovie(request,response,next){
@@ -44,4 +74,4 @@ async function findAMovie(request,response,next){
     response.movie = movie;
     next()
 }
-module.exports = {getAMovieDetail,postAMovieDetail,findAMovie,getMovieById}
+module.exports = {getAMovieDetail,postAMovieDetail,findAMovie,getMovieById,PatchAMovieDetail,deleteAMovie}
