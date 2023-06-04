@@ -3,11 +3,13 @@ const mongoose = require('mongoose')
 const imbdmovieModel = new mongoose.Schema({
     title:{
         type : String,
-        require: true
+        require: true,
+        unique:true
     },
     year: {
         type: Number,
         required: true
+
     },
     language: {
         type: String,
